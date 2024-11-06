@@ -1,0 +1,54 @@
+{% load static %}
+<style>
+    .center-align {
+        text-align: center;
+        color: green; /* You can change the color as desired */
+        margin: 20px 0; /* Adds some spacing above and below the message */
+    }
+    /* Account page */
+    .account-pages{
+        padding: 90px 0;
+        background: radial-gradient(#fff, #ffd6d6);
+    }
+</style>
+<div class="account-pages">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="{% static 'images/image1.png' %}" width="100%">
+            </div>
+            <div class="col-2">
+                <div class="form-container">
+                    <div class="form-btn">
+                        <span onclick="login()">Login</span>
+                        <span onclick="register()">Register</span>
+                        <hr id="Indicator">
+                    </div>
+                    {% if error %}
+                        <p style="color:red;">{{ error }}</p>
+                    {% endif %}
+                    <form id="LoginForm" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="text" required name="username" placeholder="Username">
+                        <input type="password" required name="password" placeholder="Password">
+                        <button type="submit" name="login" class="btn">Login</button>
+                        <a href="">Forget Password</a>
+                    </form>
+                    {% if registered %}
+                        <h3 class="center-align">Thank You For Registering</h3>
+                    {% else %}
+                        <form id="RegForm" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="text" name="username" maxlength="10" minlength="3" required placeholder="Username">
+                            <input type="email" name="email" required placeholder="Email">
+                            <input type="password" required minlength="6" name="password" placeholder="Password">
+                            <input type="text" name="address" minlength="5" required placeholder="Address">
+                            <input type="text" name="phone" minlength="5" required placeholder="Phone">
+                            <button type="submit" name="register" class="btn">Register</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
